@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ITMHousingSalesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agency">
+          <Key>
+            <PropertyRef Name="AgencyId" />
+          </Key>
+          <Property Name="AgencyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdentityDocument" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Housing">
+          <Key>
+            <PropertyRef Name="HousingId" />
+          </Key>
+          <Property Name="HousingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HousingTypeId" Type="int" Nullable="false" />
+          <Property Name="RoomCount" Type="int" Nullable="false" />
+          <Property Name="BathroomCount" Type="int" Nullable="false" />
+          <Property Name="SizeM2" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="FloorCount" Type="int" Nullable="false" />
+          <Property Name="Accessories" Type="text" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="HousingType">
+          <Key>
+            <PropertyRef Name="HousingTypeId" />
+          </Key>
+          <Property Name="HousingTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleId" />
+          </Key>
+          <Property Name="SaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="HousingId" Type="int" Nullable="false" />
+          <Property Name="AgencyId" Type="int" Nullable="false" />
+          <Property Name="SaleDate" Type="date" Nullable="false" />
+          <Property Name="SalePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Housing_HousingType">
+          <End Role="HousingType" Type="Self.HousingType" Multiplicity="1" />
+          <End Role="Housing" Type="Self.Housing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HousingType">
+              <PropertyRef Name="HousingTypeId" />
+            </Principal>
+            <Dependent Role="Housing">
+              <PropertyRef Name="HousingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Agency">
+          <End Role="Agency" Type="Self.Agency" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agency">
+              <PropertyRef Name="AgencyId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="AgencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Housing">
+          <End Role="Housing" Type="Self.Housing" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Housing">
+              <PropertyRef Name="HousingId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="HousingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ITMHousingSalesModelStoreContainer">
+          <EntitySet Name="Agency" EntityType="Self.Agency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Housing" EntityType="Self.Housing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HousingType" EntityType="Self.HousingType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Housing_HousingType" Association="Self.FK_Housing_HousingType">
+            <End Role="HousingType" EntitySet="HousingType" />
+            <End Role="Housing" EntitySet="Housing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Agency" Association="Self.FK_Sale_Agency">
+            <End Role="Agency" EntitySet="Agency" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Client" Association="Self.FK_Sale_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Housing" Association="Self.FK_Sale_Housing">
+            <End Role="Housing" EntitySet="Housing" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ITMHousingSalesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agency">
+          <Key>
+            <PropertyRef Name="AgencyId" />
+          </Key>
+          <Property Name="AgencyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Agency" FromRole="Agency" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdentityDocument" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Client" FromRole="Client" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Housing">
+          <Key>
+            <PropertyRef Name="HousingId" />
+          </Key>
+          <Property Name="HousingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HousingTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RoomCount" Type="Int32" Nullable="false" />
+          <Property Name="BathroomCount" Type="Int32" Nullable="false" />
+          <Property Name="SizeM2" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="FloorCount" Type="Int32" Nullable="false" />
+          <Property Name="Accessories" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="HousingType" Relationship="Self.FK_Housing_HousingType" FromRole="Housing" ToRole="HousingType" />
+          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Housing" FromRole="Housing" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="HousingType">
+          <Key>
+            <PropertyRef Name="HousingTypeId" />
+          </Key>
+          <Property Name="HousingTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Housing" Relationship="Self.FK_Housing_HousingType" FromRole="HousingType" ToRole="Housing" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleId" />
+          </Key>
+          <Property Name="SaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="HousingId" Type="Int32" Nullable="false" />
+          <Property Name="AgencyId" Type="Int32" Nullable="false" />
+          <Property Name="SaleDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SalePrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Agency" Relationship="Self.FK_Sale_Agency" FromRole="Sale" ToRole="Agency" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Sale_Client" FromRole="Sale" ToRole="Client" />
+          <NavigationProperty Name="Housing" Relationship="Self.FK_Sale_Housing" FromRole="Sale" ToRole="Housing" />
+        </EntityType>
+        <Association Name="FK_Sale_Agency">
+          <End Role="Agency" Type="Self.Agency" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agency">
+              <PropertyRef Name="AgencyId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="AgencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Housing_HousingType">
+          <End Role="HousingType" Type="Self.HousingType" Multiplicity="1" />
+          <End Role="Housing" Type="Self.Housing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HousingType">
+              <PropertyRef Name="HousingTypeId" />
+            </Principal>
+            <Dependent Role="Housing">
+              <PropertyRef Name="HousingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Housing">
+          <End Role="Housing" Type="Self.Housing" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Housing">
+              <PropertyRef Name="HousingId" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="HousingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ITMHousingSalesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agency" EntityType="Self.Agency" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Housing" EntityType="Self.Housing" />
+          <EntitySet Name="HousingType" EntityType="Self.HousingType" />
+          <EntitySet Name="Sale" EntityType="Self.Sale" />
+          <AssociationSet Name="FK_Sale_Agency" Association="Self.FK_Sale_Agency">
+            <End Role="Agency" EntitySet="Agency" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Client" Association="Self.FK_Sale_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Housing_HousingType" Association="Self.FK_Housing_HousingType">
+            <End Role="HousingType" EntitySet="HousingType" />
+            <End Role="Housing" EntitySet="Housing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Housing" Association="Self.FK_Sale_Housing">
+            <End Role="Housing" EntitySet="Housing" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ITMHousingSalesModelStoreContainer" CdmEntityContainer="ITMHousingSalesEntities">
+          <EntitySetMapping Name="Agency">
+            <EntityTypeMapping TypeName="ITMHousingSalesModel.Agency">
+              <MappingFragment StoreEntitySet="Agency">
+                <ScalarProperty Name="AgencyId" ColumnName="AgencyId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="ITMHousingSalesModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="IdentityDocument" ColumnName="IdentityDocument" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Housing">
+            <EntityTypeMapping TypeName="ITMHousingSalesModel.Housing">
+              <MappingFragment StoreEntitySet="Housing">
+                <ScalarProperty Name="HousingId" ColumnName="HousingId" />
+                <ScalarProperty Name="HousingTypeId" ColumnName="HousingTypeId" />
+                <ScalarProperty Name="RoomCount" ColumnName="RoomCount" />
+                <ScalarProperty Name="BathroomCount" ColumnName="BathroomCount" />
+                <ScalarProperty Name="SizeM2" ColumnName="SizeM2" />
+                <ScalarProperty Name="FloorCount" ColumnName="FloorCount" />
+                <ScalarProperty Name="Accessories" ColumnName="Accessories" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HousingType">
+            <EntityTypeMapping TypeName="ITMHousingSalesModel.HousingType">
+              <MappingFragment StoreEntitySet="HousingType">
+                <ScalarProperty Name="HousingTypeId" ColumnName="HousingTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale">
+            <EntityTypeMapping TypeName="ITMHousingSalesModel.Sale">
+              <MappingFragment StoreEntitySet="Sale">
+                <ScalarProperty Name="SaleId" ColumnName="SaleId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="HousingId" ColumnName="HousingId" />
+                <ScalarProperty Name="AgencyId" ColumnName="AgencyId" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
