@@ -13,10 +13,10 @@ namespace SalesHomes.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ITMHousingSalesEntities : DbContext
+    public partial class DBExamenEntities : DbContext
     {
-        public ITMHousingSalesEntities()
-            : base("name=ITMHousingSalesEntities")
+        public DBExamenEntities()
+            : base("name=DBExamenEntities")
         {
         }
     
@@ -25,10 +25,8 @@ namespace SalesHomes.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Agency> Agency { get; set; }
-        public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<Housing> Housing { get; set; }
-        public virtual DbSet<HousingType> HousingType { get; set; }
-        public virtual DbSet<Sale> Sale { get; set; }
+        public virtual DbSet<Cliente> Cliente { get; set; }
+        public virtual DbSet<FotoPrenda> FotoPrenda { get; set; }
+        public virtual DbSet<Prenda> Prenda { get; set; }
     }
 }

@@ -9,27 +9,25 @@
 
 namespace SalesHomes.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
-    public partial class Client
+    using Newtonsoft.Json;
+
+    public partial class Cliente
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Client()
+        public Cliente()
         {
-            this.Sale = new HashSet<Sale>();
+            this.Prenda = new HashSet<Prenda>();
         }
     
-        public int ClientId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string IdentityDocument { get; set; }
-        public string Phone { get; set; }
+        public string Documento { get; set; }
+        public string Nombre { get; set; }
         public string Email { get; set; }
+        public string Celular { get; set; }
 
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sale> Sale { get; set; }
+        public virtual ICollection<Prenda> Prenda { get; set; }
     }
 }

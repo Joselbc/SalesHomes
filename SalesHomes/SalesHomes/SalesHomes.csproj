@@ -541,62 +541,49 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Const\ValidationMessages.cs" />
+    <Compile Include="Controllers\ClothingController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\AgencyController.cs" />
-    <Compile Include="Controllers\HousingController.cs" />
-    <Compile Include="Controllers\SaleController.cs" />
-    <Compile Include="DTOs\HousingResponse.cs" />
-    <Compile Include="DTOs\AgencyResponse.cs" />
-    <Compile Include="DTOs\SaleResponse.cs" />
-    <Compile Include="DTOs\UpdateHousingStatus.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="DTOs\ClothingByCustomerDto.cs" />
     <Compile Include="Enums\HousingStatusEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Agency.cs">
-      <DependentUpon>HousingSales.tt</DependentUpon>
+    <Compile Include="Models\Cliente.cs">
+      <DependentUpon>Store.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Client.cs">
-      <DependentUpon>HousingSales.tt</DependentUpon>
+    <Compile Include="Models\FotoPrenda.cs">
+      <DependentUpon>Store.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Housing.cs">
-      <DependentUpon>HousingSales.tt</DependentUpon>
+    <Compile Include="Models\Prenda.cs">
+      <DependentUpon>Store.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HousingSales.Context.cs">
+    <Compile Include="Models\Store.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HousingSales.Context.tt</DependentUpon>
+      <DependentUpon>Store.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HousingSales.cs">
+    <Compile Include="Models\Store.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HousingSales.tt</DependentUpon>
+      <DependentUpon>Store.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HousingSales.Designer.cs">
+    <Compile Include="Models\Store.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HousingSales.edmx</DependentUpon>
+      <DependentUpon>Store.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\HousingType.cs">
-      <DependentUpon>HousingSales.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Sale.cs">
-      <DependentUpon>HousingSales.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Profiles\SaleProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositorys\AgencyRepository.cs" />
-    <Compile Include="Repositorys\ClientRepository.cs" />
-    <Compile Include="Repositorys\HousingRepository.cs" />
-    <Compile Include="Repositorys\SaleRepository.cs" />
-    <Compile Include="Services\AgencyService.cs" />
-    <Compile Include="Services\ClientService.cs" />
-    <Compile Include="Services\HousingService.cs" />
-    <Compile Include="Services\Ports\IAgencyManager.cs" />
-    <Compile Include="Services\Ports\IClientManager.cs" />
-    <Compile Include="Services\Ports\IHousingManager.cs" />
-    <Compile Include="Services\Ports\ISaleManager.cs" />
-    <Compile Include="Services\SaleService.cs" />
+    <Compile Include="Repositorys\ClothingRepository.cs" />
+    <Compile Include="Repositorys\CustomerRepository.cs" />
+    <Compile Include="Repositorys\ImageRepository.cs" />
+    <Compile Include="Services\ClothingService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\Ports\IClothingRepository.cs" />
+    <Compile Include="Services\Ports\ICustomerRepository.cs" />
+    <Compile Include="Services\Ports\IImageRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -618,15 +605,15 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Models\HousingSales.Context.tt">
+    <Content Include="Models\Store.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HousingSales.edmx</DependentUpon>
-      <LastGenOutput>HousingSales.Context.cs</LastGenOutput>
+      <DependentUpon>Store.edmx</DependentUpon>
+      <LastGenOutput>Store.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\HousingSales.tt">
+    <Content Include="Models\Store.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HousingSales.edmx</DependentUpon>
-      <LastGenOutput>HousingSales.cs</LastGenOutput>
+      <DependentUpon>Store.edmx</DependentUpon>
+      <LastGenOutput>Store.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -653,12 +640,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\HousingSales.edmx">
+    <EntityDeploy Include="Models\Store.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HousingSales.Designer.cs</LastGenOutput>
+      <LastGenOutput>Store.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\HousingSales.edmx.diagram">
-      <DependentUpon>HousingSales.edmx</DependentUpon>
+    <Content Include="Models\Store.edmx.diagram">
+      <DependentUpon>Store.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
@@ -683,6 +670,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Profiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />

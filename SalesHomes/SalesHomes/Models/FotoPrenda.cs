@@ -11,18 +11,15 @@ namespace SalesHomes.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Sale
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    public partial class FotoPrenda
     {
-        public int SaleId { get; set; }
-        public int ClientId { get; set; }
-        public int HousingId { get; set; }
-        public int AgencyId { get; set; }
-        public System.DateTime SaleDate { get; set; }
-        public decimal SalePrice { get; set; }
+        public int idFoto { get; set; }
+        [Column("FotoPrenda")]
+        public string FotoPrenda1 { get; set; }
+        public int idPrenda { get; set; }
     
-        public virtual Agency Agency { get; set; }
-        public virtual Client Client { get; set; }
-        public virtual Housing Housing { get; set; }
+        public virtual Prenda Prenda { get; set; }
     }
 }
