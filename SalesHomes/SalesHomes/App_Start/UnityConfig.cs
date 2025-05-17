@@ -22,14 +22,11 @@ namespace SalesHomes
             //var mapper = config.CreateMapper();
             //container.RegisterInstance(mapper);
 
-            container.RegisterType<IClothingRepository, ClothingRepository>(new HierarchicalLifetimeManager());
-            container.RegisterType<ICustomerRepository, CustomerRepository>(new HierarchicalLifetimeManager());
-            container.RegisterType<IImageRepository, ImageRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<ITorneoRepository, TorneoRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IAdministradorITMRepository, AdministradorITMRepository>(new HierarchicalLifetimeManager());
 
-            container.RegisterType<ClothingService>(new HierarchicalLifetimeManager());
-            container.RegisterType<CustomerService>(new HierarchicalLifetimeManager());
-            container.RegisterType<ImageService>(new HierarchicalLifetimeManager());
-
+            container.RegisterType<TorneoService>(new HierarchicalLifetimeManager());
+            container.RegisterType<AdministradorITMService>(new HierarchicalLifetimeManager());
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

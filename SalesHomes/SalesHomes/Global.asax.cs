@@ -1,7 +1,9 @@
+using SalesHomes.Services;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AuthorizeAttribute = System.Web.Http.AuthorizeAttribute;
 
 namespace SalesHomes
 {
@@ -16,6 +18,15 @@ namespace SalesHomes
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             UnityConfig.RegisterComponents();
 
+            ConfigureAuth(GlobalConfiguration.Configuration);
+
+        }
+
+        public void ConfigureAuth(HttpConfiguration config)
+        {
+            var jwtAuthManager = new JwtAuthManagerService("estaSeriaLaClaveSecreta");
+            config.Filters.Add(new AuthorizeAttribute()); // Requiere autenticación para las API
+            config.MessageHandlers.Add(new JwtBearerAuthenticationRepository(jwtAuthManager));
         }
     }
 }
