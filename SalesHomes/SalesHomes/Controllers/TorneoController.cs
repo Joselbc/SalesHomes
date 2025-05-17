@@ -16,14 +16,12 @@ namespace SalesHomes.Controllers
         {
             _torneoService = clothingService;
         }
-        // api/torneos/tipo/agregar
         [HttpPost]
         [Route("agregar")]
         public async Task<IHttpActionResult> AgregarTorneo([FromBody] Torneos torneo)
         {
             return  Ok(await _torneoService.AgregarTorneo(torneo));
         }
-        // api/torneos
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> ObtenerTorneos()
@@ -39,7 +37,6 @@ namespace SalesHomes.Controllers
            return Ok(await _torneoService.ObtenerTorneoPorId(id));
         }
 
-        // api/torneos/tipo/{tipo}
         [HttpGet]
         [Route("tipo/{tipo}")]
         public async Task<IHttpActionResult> ObtenerTorneoPorTipo(string tipo)
@@ -47,7 +44,6 @@ namespace SalesHomes.Controllers
             return Ok(await _torneoService.ObtenerTorneoPorTipo(tipo));
         }
 
-        // api/torneos/nombre/{nombre}
         [HttpGet]
         [Route("nombre/{nombre}")]
         public async Task<IHttpActionResult> ObtenerTorneoPorNombre(string nombre)
@@ -55,7 +51,6 @@ namespace SalesHomes.Controllers
             return Ok( await _torneoService.ObtenerTorneoPorNombre(nombre));
         }
 
-        // api/torneos/fecha/{fecha}
         [HttpGet]
         [Route("fecha/{fecha}")]
         public async Task<IHttpActionResult> ObtenerTorneoPorFecha(DateTime fecha)
@@ -63,7 +58,6 @@ namespace SalesHomes.Controllers
             return Ok(await _torneoService.ObtenerTorneoPorFecha(fecha));
         }
 
-        // api/torneos/actualizar
         [HttpPut]
         [Route("actualizar")]
         public async Task<IHttpActionResult> ActualizarTorneo([FromBody] Torneos torneo)
@@ -71,7 +65,6 @@ namespace SalesHomes.Controllers
             return Ok(await _torneoService.ActualizarTorneo(torneo));
         }
 
-        // api/torneos/eliminar/{id}
         [HttpDelete]
         [Route("eliminar/{id}")]
         public async Task<IHttpActionResult> EliminarTorneo(int id)
